@@ -36,7 +36,7 @@ def download_model_from_blob(container_name, model_name):
     model = mlflow.pyfunc.load_model(model_path)
     return model
 
-# Adicionar as rotas do FastAPI
+# Rota para testar se o FastAPI está funcionando
 @app.get("/")
 async def home():
     """
@@ -44,6 +44,7 @@ async def home():
     """
     return {"message": "Azure Functions + FastAPI working!"}
 
+# Rota para gerar recomendações com base no user_id
 @app.get("/recommendations/{user_id}")
 async def get_recommendations(user_id: int):
     """
@@ -75,7 +76,7 @@ function_app = func.FunctionApp()
 @function_app.route(route="{*path}", auth_level=func.AuthLevel.ANONYMOUS)
 async def fastapi_handler(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     """
-    Função que direciona todas as requisições para o FastAPI.
+    Roteia todas as requisições para o FastAPI.
     """
     asgi_middleware = AsgiMiddleware(app)
     return await asgi_middleware.handle_async(req, context)
