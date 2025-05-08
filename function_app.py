@@ -9,7 +9,7 @@ app = func.FunctionApp()
 def download_model_from_blob(container_name, model_name):
     connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
     if not connection_string:
-        raise ValueError("AZURE_STORAGE_CONNECTION_STRING não foi definida nas variáveis de ambiente.")
+        raise ValueError("AZURE_STORAGE_CONNECTION_STRING não foi definida nas variáveis de ambiente")
 
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
     container_client = blob_service_client.get_container_client(container_name)
